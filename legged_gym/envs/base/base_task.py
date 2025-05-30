@@ -4,6 +4,8 @@ from isaacgym import gymapi
 from isaacgym import gymutil
 import numpy as np
 import torch
+from legged_gym.envs.g1.terrain import SimpleStairTerrain
+
 
 # Base class for RL tasks
 class BaseTask():
@@ -53,6 +55,18 @@ class BaseTask():
 
         # create envs, sim and viewer
         self.create_sim()
+            # 添加 stair 地形
+        self.terrain_generator = SimpleStairTerrain(
+        gym=self.gym,
+        sim=self.sim,
+        stair_height=0.25,  # 高度可以调整
+        stair_width=0.5,
+        stair_depth=0.3,
+        num_steps=1  # 你可以增加步数
+         )
+    # env_origin 是每个环境的原点，建议你已有变量是这个名字
+        self.terrain_generator.create(self.cfg.env.env_origin)
+
         self.gym.prepare_sim(self.sim)
 
         # todo: read from config
