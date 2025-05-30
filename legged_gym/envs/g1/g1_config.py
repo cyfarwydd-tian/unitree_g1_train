@@ -23,6 +23,7 @@ class G1RoughCfg( LeggedRobotCfg ):
         num_observations = 47
         num_privileged_obs = 50
         num_actions = 12
+        
 
 
     class domain_rand(LeggedRobotCfg.domain_rand):
