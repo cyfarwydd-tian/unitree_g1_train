@@ -200,8 +200,12 @@ class LeggedRobot(BaseTask):
         """
         self.up_axis_idx = 2 # 2 for z, 1 for y -> adapt gravity accordingly
         self.sim = self.gym.create_sim(self.sim_device_id, self.graphics_device_id, self.physics_engine, self.sim_params)
-        self._create_ground_plane()
+        #self._create_ground_plane()
+        #self._create_trimesh_terrain()
         self._create_envs()
+
+   
+
 
     def set_camera(self, position, lookat):
         """ Set camera position and direction
@@ -516,6 +520,26 @@ class LeggedRobot(BaseTask):
         plane_params.dynamic_friction = self.cfg.terrain.dynamic_friction
         plane_params.restitution = self.cfg.terrain.restitution
         self.gym.add_ground(self.sim, plane_params)
+    
+    def _create_trimesh_terrain(self):
+     """Creates a trimesh terrain and adds it to the simulation based on cfg.terrain"""
+
+
+     # 初始化地形生成器
+     self.terrain_generator = TerrainGenerator(self.cfg.terrain)
+
+    # 生成地形，得到三角面元和顶点等数据
+     self.terrain_generator.generate()
+
+     # 将 mesh 数据传给仿真器
+     self.gym.set_terrain_mesh(
+        self.sim,
+        self.terrain_generator.vertices,
+        self.terrain_generator.triangles,
+        self.terrain_generator.heights,
+        self.terrain_generator.terrain_width,
+        self.terrain_generator.terrain_length
+     )
 
     def _create_envs(self):
         """ Creates environments:

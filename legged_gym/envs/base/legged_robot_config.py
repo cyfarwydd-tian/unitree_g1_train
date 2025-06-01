@@ -50,7 +50,7 @@ class LeggedRobotCfg(BaseConfig):
         measured_points_x = [-0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
         measured_points_y = [-0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5]
 
-        selected = True  # ✅ 强制选择一个地形类型
+        selected = True  # 
         terrain_kwargs = {
         'type': 'stairs_up',
         'step_height': 0.55,     # 台阶高度（可调）
@@ -59,7 +59,7 @@ class LeggedRobotCfg(BaseConfig):
         'platform_size': 10.0     # 顶部平台长度（避免立即跌落）
         }
 
-    # curriculum被禁用，下面这些就不会生效，但保留也可以
+        # curriculum被禁用，下面这些就不会生效，但保留也可以
         max_init_terrain_level = 5
         terrain_length = 8.
         terrain_width = 8.
